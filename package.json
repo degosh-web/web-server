@@ -1,0 +1,22 @@
+{
+  "name": "web-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "/server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/degosh-web/web-server.git"
+  },
+  "author": "dima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/degosh-web/web-server/issues"
+  },
+  "homepage": "https://github.com/degosh-web/web-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
