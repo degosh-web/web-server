@@ -4,6 +4,8 @@
   "description": "",
   "main": "/server/server.js",
   "scripts": {
+    "serve": "nodemon ./server/server.js",
+    "start": "node ./server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +20,8 @@
   "homepage": "https://github.com/degosh-web/web-server#readme",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

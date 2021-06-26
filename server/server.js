@@ -7,12 +7,12 @@ const port = 3333;
 const app = express();
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../site/index.html'));
+    res.sendFile(path.resolve("./site/index.html"));
 });
 
-app.get('/index.css', function(req, res) {
-    res.sendFile(__dirname + "/" + "../site/index.css");
-  });
+app.get('/admin', (req, res) => {
+    res.sendFile(path.resolve("./site/admin.html"));
+});
 
 app.listen(port, () => {
     console.log(`Index page listening at http://localhost:${port}`)
