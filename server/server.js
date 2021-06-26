@@ -5,8 +5,21 @@ const fs = require('fs');
 const port = 3333;
 
 const app = express();
-const admin = express();
 
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../site/index.html'));
+});
+
+app.get('/index.css', function(req, res) {
+    res.sendFile(__dirname + "/" + "../site/index.css");
+  });
+
+app.listen(port, () => {
+    console.log(`Index page listening at http://localhost:${port}`)
+    console.log(`Admin panel listening at http://localhost:${port}/admin.html`)
+});
+
+/*
 app.get('/authByKey', (req, res) => {
     let urlRequest = url.parse(req.url, true);
     var key = urlRequest.query.key;
@@ -18,12 +31,13 @@ app.get('/authByKey', (req, res) => {
         } else {
             res.send("OK");
         }
-    });    
+    });
 });
 
-app.use(express.static('../site'));
-
-
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+app.use('/admin', '../site/admin');
+app.get('/admin', (req, res) => {
+    res.send('../site/admin.html')
 });
+*/
+//app.use(express.static('../site'));
+
