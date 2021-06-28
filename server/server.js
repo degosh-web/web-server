@@ -9,7 +9,7 @@ const app = express();
 
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve("./site/index.html"));
+    res.sendFile(path.resolve("../site/index.html"));
 });
 
 app.get('/authbykey/:key/:ip', (req, res) => {
