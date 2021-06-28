@@ -9,13 +9,13 @@ const app = express();
 
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve("../site/index.html"));
+    res.sendFile(path.resolve("./site/index.html"));
 });
 
 app.get('/authbykey/:key/:ip', (req, res) => {
     try {
-        fs.readdir("../keys/", function (err1, files) {
-            fs.readFile(`./keys/${req.params.key}.json`, 'utf8', (err2, jsonString) => {
+        fs.readdir("../../keys/", function (err1, files) {
+            fs.readFile(`../../keys/${req.params.key}.json`, 'utf8', (err2, jsonString) => {
                 try {
                     var keyData = JSON.parse(jsonString);
                     if (keyData.IP == req.params.ip) {
