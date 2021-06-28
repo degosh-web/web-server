@@ -7,7 +7,7 @@ const port = 3333;
 const app = express();
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve("../site/index.html"));
+    res.sendFile(path.resolve("../site/admin.html"));
 });
 
 app.get('/admin', (req, res) => {
@@ -39,5 +39,3 @@ app.get('/admin', (req, res) => {
     res.send('../site/admin.html')
 });
 */
-//app.use(express.static('../site'));
-
