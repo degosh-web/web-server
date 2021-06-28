@@ -37,7 +37,7 @@ app.get('/authbykey/:key/:ip', (req, res) => {
 app.get('/activekey.php', (req, res) => {
     var keyReq = req.query.key;
     try {
-        fs.readFile(`../keys/${keyReq}.json`, 'utf8', (err2, jsonString) => {
+        fs.readFile(`../../keys/${keyReq}.json`, 'utf8', (err2, jsonString) => {
             try {
                 var keyData = JSON.parse(jsonString);
                 res.send("OK");
