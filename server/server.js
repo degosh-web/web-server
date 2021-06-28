@@ -6,8 +6,33 @@ const port = 3333;
 
 const app = express();
 
+
+
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve("../site/index.html"));
+    res.sendFile(path.resolve("./site/index.html"));
+});
+
+app.get('/authbykey/:key/:ip', (req, res) => {
+    try {
+        
+            fs.readdir("../keys/", function (err1, files) {
+                fs.readFile(`./keys/${req.params.key}.json`, 'utf8', (err2, jsonString) => {
+                    try {
+                        var keyData = JSON.parse(jsonString);
+                        if (keyData.IP == req.params.ip) {
+                            res.send("Hello, " + keyData.nickname);
+                        } else {
+                            res.send("Is it you?");
+                        }
+                    } catch (err1) {
+                        res.send('No key');
+                    }
+                });
+            });
+        
+    } catch (err) {
+        res.send("Error");
+    }
 });
 
 app.get('/admin', (req, res) => {
@@ -20,20 +45,6 @@ app.listen(port, () => {
 });
 
 /*
-app.get('/authByKey', (req, res) => {
-    let urlRequest = url.parse(req.url, true);
-    var key = urlRequest.query.key;
-
-    fs.readFile(`../keys/${key}.json`, 'utf8', (err, jsonString) => {
-        if (err) {
-            res.send("The system can not find this key");
-            return;
-        } else {
-            res.send("OK");
-        }
-    });
-});
-
 app.use('/admin', '../site/admin');
 app.get('/admin', (req, res) => {
     res.send('../site/admin.html')
