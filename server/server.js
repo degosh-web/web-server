@@ -14,22 +14,37 @@ app.get('/', (req, res) => {
 
 app.get('/authbykey/:key/:ip', (req, res) => {
     try {
-        
-            fs.readdir("../keys/", function (err1, files) {
-                fs.readFile(`./keys/${req.params.key}.json`, 'utf8', (err2, jsonString) => {
-                    try {
-                        var keyData = JSON.parse(jsonString);
-                        if (keyData.IP == req.params.ip) {
-                            res.send("Hello, " + keyData.nickname);
-                        } else {
-                            res.send("Is it you?");
-                        }
-                    } catch (err1) {
-                        res.send('No key');
+        fs.readdir("../keys/", function (err1, files) {
+            fs.readFile(`./keys/${req.params.key}.json`, 'utf8', (err2, jsonString) => {
+                try {
+                    var keyData = JSON.parse(jsonString);
+                    if (keyData.IP == req.params.ip) {
+                        res.send("Hello, " + keyData.nickname);
+                    } else {
+                        res.send("Is it you?");
                     }
-                });
+                } catch (err1) {
+                    res.send('No key');
+                }
             });
-        
+        });
+
+    } catch (err) {
+        res.send("Error");
+    }
+});
+
+app.get('/authbykey', (req, res) => {
+    var keyReq = req.query.key;
+    try {
+        fs.readFile(`../keys/${keyReq}.json`, 'utf8', (err2, jsonString) => {
+            try {
+                var keyData = JSON.parse(jsonString);
+                res.send("OK");
+            } catch (err1) {
+                res.send('No key');
+            }
+        });
     } catch (err) {
         res.send("Error");
     }
