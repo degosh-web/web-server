@@ -6,8 +6,6 @@ const port = 3333;
 
 const app = express();
 
-app.set('trust proxy', true);
-
 app.get('/', (req, res) => {
     res.sendFile(path.resolve("../site/index.html"));
 });
@@ -39,13 +37,24 @@ app.get('/shelterPlus-extension/:key/:ip', (req, res) => {
         fs.readFile(`../../shelterKeys/${req.params.key}.json`, 'utf8', (err, jsonString) => {
             try {
                 var keyData = JSON.parse(jsonString);
-                res.send("OK");
+                if (keyData.ip == req.params.ip) {
+                    res.send("OK");
+                } else if (keyData.ip == " ") {
+                    keyData.ip = req.params.ip;
+                    keyData = JSON.stringify(keyData);
+                    fs.writeFile(`../../shelterKeys/${req.params.key}.json`, keyData, err => {
+                        if (err) {
+                            console.log(err);
+                        }
+                    })
+                    res.send("OK");
+                }
             } catch (err) {
                 res.send('No key');
             }
         });
     } catch (err) {
-        res.send("Error");
+        console.log("Error");
     }
 });
 
