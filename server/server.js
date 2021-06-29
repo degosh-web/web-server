@@ -6,7 +6,7 @@ const port = 3333;
 
 const app = express();
 
-
+app.set('trust proxy', true);
 
 app.get('/', (req, res) => {
     res.sendFile(path.resolve("../site/index.html"));
@@ -63,11 +63,6 @@ app.get('/activekey.php', (req, res) => {
     } catch (err) {
         res.send("Error");
     }
-});
-
-app.get('/getUserIP', (req, res) => {
-    var ip = req.ip;
-    res.send(ip);
 });
 
 /*
