@@ -34,6 +34,22 @@ app.get('/authbykey/:key/:ip', (req, res) => {
     }
 });
 
+app.get('/shelterPlus-extension/:key/:ip', (req, res) => {
+    var keyReq = req.query.key;
+    try {
+        fs.readFile(`../../keys/${keyReq}.json`, 'utf8', (err2, jsonString) => {
+            try {
+                var keyData = JSON.parse(jsonString);
+                res.send("OK");
+            } catch (err1) {
+                res.send('No key');
+            }
+        });
+    } catch (err) {
+        res.send("Error");
+    }
+});
+
 app.get('/activekey.php', (req, res) => {
     var keyReq = req.query.key;
     try {
