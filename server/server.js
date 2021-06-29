@@ -84,10 +84,3 @@ app.listen(port, () => {
     console.log(`Index page listening at http://localhost:${port}`)
     console.log(`Admin panel listening at http://localhost:${port}/admin.html`)
 });
-
-/*
-app.use('/admin', '../site/admin');
-app.get('/admin', (req, res) => {
-    res.send('../site/admin.html')
-});
-*/
