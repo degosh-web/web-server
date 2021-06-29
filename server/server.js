@@ -40,7 +40,7 @@ app.get('/shelterPlus-extension/:key/:ip', (req, res) => {
                 if (keyData.IP == req.params.ip) {
                     res.send("OK");
                 } else if (keyData.IP == "") {
-                    keyData.ip = req.params.ip;
+                    keyData.IP = req.params.ip;
                     keyData = JSON.stringify(keyData);
                     fs.writeFile(`../../shelter/keys/${req.params.key}.json`, keyData, err => {
                         if (err) {
