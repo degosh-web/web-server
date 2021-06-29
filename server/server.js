@@ -34,7 +34,7 @@ app.get('/authbykey/:key/:ip', (req, res) => {
 
 app.get('/shelterPlus-extension/:key/:ip', (req, res) => {
     try {
-        fs.readFile(`../../shelterKeys/${req.params.key}.json`, 'utf8', (err, jsonString) => {
+        fs.readFile(`../../shelter/keys/${req.params.key}.json`, 'utf8', (err, jsonString) => {
             try {
                 var keyData = JSON.parse(jsonString);
                 if (keyData.ip == req.params.ip) {
@@ -42,7 +42,7 @@ app.get('/shelterPlus-extension/:key/:ip', (req, res) => {
                 } else if (keyData.ip == " ") {
                     keyData.ip = req.params.ip;
                     keyData = JSON.stringify(keyData);
-                    fs.writeFile(`../../shelterKeys/${req.params.key}.json`, keyData, err => {
+                    fs.writeFile(`../../shelter/keys/${req.params.key}.json`, keyData, err => {
                         if (err) {
                             console.log(err);
                         }
