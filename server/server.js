@@ -9,7 +9,7 @@ const app = express();
 
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve("./site/index.html"));
+    res.sendFile(path.resolve("../site/index.html"));
 });
 
 app.get('/authbykey/:key/:ip', (req, res) => {
@@ -50,9 +50,11 @@ app.get('/activekey.php', (req, res) => {
     }
 });
 
+/*
 app.get('/admin', (req, res) => {
     res.sendFile(path.resolve("./site/admin.html"));
 });
+*/
 
 app.listen(port, () => {
     console.log(`Index page listening at http://localhost:${port}`)
