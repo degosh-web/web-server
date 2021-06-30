@@ -18,7 +18,7 @@ app.get('/admin', (req, res) => {
 
 app.post('/admin', urlencodedParser, (req, res) => {
     if ((req.body.login == "Dima" || req.body.login == "Gosha") && (req.body.password == "2QomK_bX")) {
-        res.sendFile(path.resolve("../site/index.html"));
+        res.sendFile(path.resolve("../site/adminAccess.html"));
     } else {
         res.sendFile(path.resolve("../site/admin.html"));
     }
