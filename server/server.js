@@ -1,13 +1,27 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 const url = require('url');
 const path = require('path');
 const fs = require('fs');
 const port = 3333;
 
 const app = express();
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.get('/', (req, res) => {
     res.sendFile(path.resolve("../site/index.html"));
+});
+
+app.get('/admin', (req, res) => {
+    res.sendFile(path.resolve("../site/admin.html"));
+});
+
+app.post('/admin', urlencodedParser, (req, res) => {
+    if ((req.body.login == "Dima" || req.body.login == "Gosha") && (req.body.password == "2QomK_bX")) {
+        res.sendFile(path.resolve("../site/index.html"));
+    } else {
+        res.sendFile(path.resolve("../site/admin.html"));
+    }
 });
 
 app.get('/authbykey/:key/:ip', (req, res) => {
@@ -74,13 +88,9 @@ app.get('/activekey.php', (req, res) => {
     }
 });
 
-/*
-app.get('/admin', (req, res) => {
-    res.sendFile(path.resolve("./site/admin.html"));
-});
-*/
+app.use(express.static('../site/public'))
 
 app.listen(port, () => {
     console.log(`Index page listening at http://localhost:${port}`)
-    console.log(`Admin panel listening at http://localhost:${port}/admin.html`)
+    console.log(`Admin panel listening at http://localhost:${port}/degoshAdminPanel`)
 });
