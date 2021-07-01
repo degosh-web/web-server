@@ -6,21 +6,23 @@ const fs = require('fs');
 const port = 3333;
 
 const app = express();
+app.set('views', path.resolve('../site/views'))
+app.set('view engine', 'ejs')
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve("../site/index.html"));
+    res.render('pages/index');
 });
 
 app.get('/admin', (req, res) => {
-    res.sendFile(path.resolve("../site/admin.html"));
+    res.render('pages/admin', {title: "Degosh admin | Log in"});
 });
 
 app.post('/admin', urlencodedParser, (req, res) => {
     if ((req.body.login == "Dima" || req.body.login == "Gosha") && (req.body.password == "2QomK_bX")) {
-        res.sendFile(path.resolve("../site/adminAccess.html"));
+        res.render('pages/adminAccess', {title: "Degosh admin"});
     } else {
-        res.sendFile(path.resolve("../site/admin.html"));
+        res.render('pages/admin', {title: "Degosh admin"});
     }
 });
 
@@ -40,7 +42,6 @@ app.get('/authbykey/:key/:ip', (req, res) => {
                 }
             });
         });
-
     } catch (err) {
         res.send("Error");
     }
