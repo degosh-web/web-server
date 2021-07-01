@@ -1,95 +1,27 @@
 const express = require('express');
 const bodyParser = require("body-parser");
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const url = require('url');
 const path = require('path');
 const fs = require('fs');
 const port = 3333;
-
 const app = express();
+
+const adminRouter = require("./routing/admin");
+const shelterRouter = require("./routing/shelterPlus");
+const extensionAuthRouter = require("./routing/extensionAuth");
+
 app.set('views', path.resolve('../site/views'))
 app.set('view engine', 'ejs')
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+app.use(express.static('../site/public'))
+app.use('/', adminRouter);
+app.use('/', shelterRouter);
+app.use('/', extensionAuthRouter);
 
 app.get('/', (req, res) => {
     res.render('pages/index');
 });
-
-app.get('/admin', (req, res) => {
-    res.render('pages/admin', {title: "Degosh admin | Log in"});
-});
-
-app.post('/admin', urlencodedParser, (req, res) => {
-    if ((req.body.login == "Dima" || req.body.login == "Gosha") && (req.body.password == "2QomK_bX")) {
-        res.render('pages/adminAccess', {title: "Degosh admin"});
-    } else {
-        res.render('pages/admin', {title: "Degosh admin"});
-    }
-});
-
-app.get('/authbykey/:key/:ip', (req, res) => {
-    try {
-        fs.readdir("../../keys/", function (err1, files) {
-            fs.readFile(`../../keys/${req.params.key}.json`, 'utf8', (err2, jsonString) => {
-                try {
-                    var keyData = JSON.parse(jsonString);
-                    if (keyData.IP == req.params.ip) {
-                        res.send("Hello, " + keyData.nickname);
-                    } else {
-                        res.send("Is it you?");
-                    }
-                } catch (err1) {
-                    res.send('No key');
-                }
-            });
-        });
-    } catch (err) {
-        res.send("Error");
-    }
-});
-
-app.get('/shelterPlus-extension/:key/:ip', (req, res) => {
-    try {
-        fs.readFile(`../../shelter/keys/${req.params.key}.json`, 'utf8', (err, jsonString) => {
-            try {
-                var keyData = JSON.parse(jsonString);
-                if (keyData.IP == req.params.ip) {
-                    res.send("OK");
-                } else if (keyData.IP == "") {
-                    keyData.IP = req.params.ip;
-                    keyData = JSON.stringify(keyData);
-                    fs.writeFile(`../../shelter/keys/${req.params.key}.json`, keyData, err => {
-                        if (err) {
-                            console.log(err);
-                        }
-                    })
-                    res.send("OK");
-                }
-            } catch (err) {
-                res.send('No key');
-            }
-        });
-    } catch (err) {
-        console.log("Error");
-    }
-});
-
-app.get('/activekey.php', (req, res) => {
-    var keyReq = req.query.key;
-    try {
-        fs.readFile(`../../keys/${keyReq}.json`, 'utf8', (err2, jsonString) => {
-            try {
-                var keyData = JSON.parse(jsonString);
-                res.send("OK");
-            } catch (err1) {
-                res.send('No key');
-            }
-        });
-    } catch (err) {
-        res.send("Error");
-    }
-});
-
-app.use(express.static('../site/public'))
 
 app.listen(port, () => {
     console.log(`Index page listening at http://localhost:${port}`)
