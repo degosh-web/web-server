@@ -1,4 +1,3 @@
-const mongo = require('mongodb');
 const express = require('express');
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
