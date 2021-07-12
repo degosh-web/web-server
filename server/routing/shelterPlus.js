@@ -70,6 +70,35 @@ shelterRouter.get('/shelterPlus-extension/removeKey/:disordID/', (req, res) => {
     });
 });
 
+shelterRouter.get('/shelterPlus-extension/:key/:IP/', (req, res) => {
+    MongoClient.connect(databaseUrl, function (err, db) {
+        var dbo = db.db("shelterPlus");
+        var query = { key: req.params.key };
+
+        dbo.collection("users").findOne(query, function (err, result) {
+            if (result) {
+                if (result.IP == req.params.IP) {
+                    res.send("OK");
+                }
+
+                if (result.IP == "") {
+                    let profile = {
+                        discordID: result.discordID,
+                        key: result.key,
+                        IP: req.params.IP,
+                    }
+
+                    dbo.collection("users").update(query, profile, { upsert: true });
+
+                    res.send("OK");
+                }
+            } else {
+                console.log("bad");
+            }
+        });
+    });
+});
+
 function generateKey() {
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
