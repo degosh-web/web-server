@@ -79,9 +79,7 @@ shelterRouter.get('/shelterPlus-extension/:key/:IP/', (req, res) => {
             if (result) {
                 if (result.IP == req.params.IP) {
                     res.send("OK");
-                }
-
-                if (result.IP == "") {
+                } else if (result.IP == "") {
                     let profile = {
                         discordID: result.discordID,
                         key: result.key,
@@ -91,9 +89,9 @@ shelterRouter.get('/shelterPlus-extension/:key/:IP/', (req, res) => {
                     dbo.collection("users").update(query, profile, { upsert: true });
 
                     res.send("OK");
+                } else {
+                    res.send("Bad");
                 }
-            } else {
-                console.log("bad");
             }
         });
     });
