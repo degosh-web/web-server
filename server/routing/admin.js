@@ -1,8 +1,6 @@
 const adminRouter = require('express').Router();
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
 
 adminRouter.get('/admin', (req, res) => {
     res.render('pages/admin', { title: "Degosh admin | Log in" });

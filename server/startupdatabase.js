@@ -1,6 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const dbPath = "mongodb://localhost:27017/degosh";
-const dbShelterPlusPath = "mongodb://localhost:27017/shelterPlus";
+const dbPath = "mongodb://admin:2QomK_bX@degosh.com:27017/";
 
 MongoClient.connect(dbPath, function (err, db) {
     if (err) throw err;
@@ -12,7 +11,7 @@ MongoClient.connect(dbPath, function (err, db) {
     });
 });
 
-MongoClient.connect(dbShelterPlusPath, function (err, db) {
+MongoClient.connect(dbPath, function (err, db) {
     if (err) throw err;
     var dbo = db.db("shelterPlus");
     dbo.createCollection("users", function (err, res) {

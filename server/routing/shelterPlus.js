@@ -1,6 +1,6 @@
 const shelterRouter = require('express').Router();
 var MongoClient = require('mongodb').MongoClient;
-var databaseUrl = "mongodb://localhost:27017/";
+var databaseUrl = "mongodb://admin:2QomK_bX@degosh.com:27017/";
 
 module.exports = shelterRouter;
 
@@ -70,20 +70,21 @@ shelterRouter.get('/shelterPlus-extension/removeKey/:disordID/', (req, res) => {
     });
 });
 
-shelterRouter.get('/shelterPlus-extension/:key/:IP/', (req, res) => {
+shelterRouter.get('/shelterPlus-extension/:key/', (req, res) => {
     MongoClient.connect(databaseUrl, function (err, db) {
         var dbo = db.db("shelterPlus");
         var query = { key: req.params.key };
 
         dbo.collection("users").findOne(query, function (err, result) {
+            console.log(req.ip);
             if (result) {
-                if (result.IP == req.params.IP) {
+                if (result.IP == req.ip) {
                     res.send("OK");
                 } else if (result.IP == "") {
                     let profile = {
                         discordID: result.discordID,
                         key: result.key,
-                        IP: req.params.IP,
+                        IP: req.ip
                     }
 
                     dbo.collection("users").update(query, profile, { upsert: true });
@@ -92,6 +93,8 @@ shelterRouter.get('/shelterPlus-extension/:key/:IP/', (req, res) => {
                 } else {
                     res.send("Bad");
                 }
+            } else {
+                res.send("Bad");
             }
         });
     });
