@@ -94,7 +94,7 @@ shelterRouter.get('/shelterPlus-extension/:key/', (req, res) => {
                     res.send("Bad");
                 }
             } else {
-                res.send("Bad");
+                res.send("No key");
             }
         });
     });
