@@ -11,10 +11,11 @@ const adminRouter = require("./routing/admin");
 const shelterRouter = require("./routing/shelterPlus");
 const extensionAuthRouter = require("./routing/extensionAuth");
 
-app.set('views', path.resolve('../site/views'))
-app.set('view engine', 'ejs')
+app.set('views', path.resolve('../site/views'));
+app.set('view engine', 'ejs');
+app.set('trust proxy', true);
 
-app.use(express.static('../site/public'))
+app.use(express.static('../site/public'));
 app.use('/', adminRouter);
 app.use('/', shelterRouter);
 app.use('/', extensionAuthRouter);
