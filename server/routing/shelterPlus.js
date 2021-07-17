@@ -82,6 +82,7 @@ shelterRouter.get('/shelterPlus-extension/:key/', (req, res) => {
             console.log(req.ip);
             if (result) {
                 if (result.IP == req.ip) {
+                    db.close();
                     res.send("OK");
                 } else if (result.IP == "") {
                     let profile = {
