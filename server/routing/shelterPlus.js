@@ -61,6 +61,7 @@ shelterRouter.get('/shelterPlus-extension/resetIP/:disordID/', (req, res) => {
 
 shelterRouter.get('/shelterPlus-extension/removeKey/:disordID/', (req, res) => {
     MongoClient.connect(databaseUrl, function (err, db) {
+        if (err) throw err;
         var dbo = db.db("shelterPlus");
         let query = { discordID: req.params.disordID };
         dbo.collection("users").deleteOne(query, function (err, obj) {
@@ -72,6 +73,7 @@ shelterRouter.get('/shelterPlus-extension/removeKey/:disordID/', (req, res) => {
 
 shelterRouter.get('/shelterPlus-extension/:key/', (req, res) => {
     MongoClient.connect(databaseUrl, function (err, db) {
+        if (err) throw err;
         var dbo = db.db("shelterPlus");
         var query = { key: req.params.key };
 
