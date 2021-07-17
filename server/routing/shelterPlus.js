@@ -55,6 +55,7 @@ shelterRouter.get('/shelterPlus-extension/resetIP/:disordID/', (req, res) => {
         setTimeout(function () {
             dbo.collection("users").update(query, { "discordID": change[0], "key": change[1], "IP": change[2] }, { upsert: true });
         }, 500)
+        db.close();
         res.send("yes");
     });
 });
@@ -90,12 +91,14 @@ shelterRouter.get('/shelterPlus-extension/:key/', (req, res) => {
                     }
 
                     dbo.collection("users").update(query, profile, { upsert: true });
-
+                    db.close();
                     res.send("OK");
                 } else {
+                    db.close();
                     res.send("Bad");
                 }
             } else {
+                db.close();
                 res.send("No key");
             }
         });
