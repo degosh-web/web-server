@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 adminRouter.get('/admin', (req, res) => {
-    res.render('pages/admin', { title: "Degosh admin | Log in" });
+    res.render('pages/admin');
 });
 
 adminRouter.post('/admin', urlencodedParser, (req, res) => {

@@ -79,7 +79,6 @@ shelterRouter.get('/shelterPlus-extension/:key/', (req, res) => {
         var query = { key: req.params.key };
 
         dbo.collection("users").findOne(query, function (err, result) {
-            console.log(req.ip);
             if (result) {
                 if (result.IP == req.ip) {
                     db.close();

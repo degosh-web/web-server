@@ -1,0 +1,32 @@
+html, body {
+    background-color: black;
+}
+
+header {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5%;
+    align-items: center;
+    justify-content: center;
+}
+
+#edit {
+    position: absolute;
+    background-color: white;
+    height: 85%;
+    width: 95%;
+    bottom: 5%;
+    left: 2.5%;
+}
+
+#head {
+    display: flex;
+    flex-direction: row;
+    background-color: #5B5B5B;
+}
+
+#head h4 {
+    flex: 1;
+    color: white;
+}
